@@ -23,7 +23,6 @@ h2{font-size:21px;margin:8px 0 12px}h3{margin:0 0 8px;font-size:17px}
 input{width:100%;background:#0c0911;color:var(--text);border:1px solid #49335c;border-radius:13px;padding:14px;font:inherit;outline:none}
 input:focus{border-color:var(--purple);box-shadow:0 0 0 3px #a855f722}
 button,.button{border:0;border-radius:12px;padding:12px 14px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:white;font:inherit;font-weight:750;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px}
-button:disabled{opacity:.5;cursor:wait}
 .secondary{background:#2a2036;border:1px solid #49335c}
 .small{padding:9px 11px;font-size:13px}.danger{background:#44202e}
 .searchrow{display:flex;gap:8px;margin-top:9px}.searchrow button{white-space:nowrap}
@@ -42,8 +41,6 @@ button:disabled{opacity:.5;cursor:wait}
 audio{width:100%;height:38px}
 .hidden{display:none!important}.library-item{display:flex;flex-direction:column;gap:9px}
 .footer-note{font-size:12px;color:#8e7fa0;text-align:center;padding:20px 4px;line-height:1.6}
-.yt-thumb{width:100%;max-width:340px;aspect-ratio:16/9;object-fit:cover;border-radius:12px;background:#09070d}
-#ytPlayer iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px}
 @media(min-width:600px){main{padding:22px}.player{bottom:76px}.bottom-nav{padding-left:max(8px,calc((100% - 760px)/2));padding-right:max(8px,calc((100% - 760px)/2))}}
 </style>
 </head>
@@ -57,7 +54,7 @@ audio{width:100%;height:38px}
   <section id="home" class="page active">
     <div class="hero">
       <h2>هلا بيك بمكتبتك الصوتية 🎧</h2>
-      <p>ابحث عن تلاوات القرآن، القصائد، الأصوات وغيرها من خلال نتائج YouTube.</p>
+      <p>ابحث عن التلاوات والقصائد والأصوات من خلال YouTube مباشرة.</p>
       <button onclick="showPage('search')">🔎 ابدأ البحث</button>
       <button class="secondary" onclick="showPage('library')">📥 مكتبتي بدون إنترنت</button>
     </div>
@@ -73,7 +70,7 @@ audio{width:100%;height:38px}
     </div>
     <div class="card">
       <h3>💡 عن البحث</h3>
-      <p class="muted">تظهر النتائج من خلال خدمة بحث وسيطة عامة. قد تتوقف الخدمة أحياناً. تشغيل الفيديو يتم عبر مشغّل YouTube الرسمي.</p>
+      <p class="muted">البحث يفتح نتائج YouTube الرسمية. لا يحتاج إلى مفتاح API، وقد تحتاج إلى الإنترنت لعرض النتائج.</p>
     </div>
   </section>
 
@@ -94,20 +91,19 @@ audio{width:100%;height:38px}
       </div>
       <div id="searchStatus" class="status" aria-live="polite"></div>
     </div>
-    <div id="ytPlayer" class="card hidden"></div>
     <div id="resultsCount" class="count"></div>
     <div id="results"></div>
   </section>
 
   <section id="favorites" class="page">
     <h2>💜 المفضلة</h2>
-    <p class="muted">احفظ الفيديوهات والملفات اللي تعجبك حتى ترجع إلها بسرعة.</p>
+    <p class="muted">احفظ روابط الفيديوهات والملفات اللي تعجبك حتى ترجع إلها بسرعة.</p>
     <div id="favoritesList"></div>
   </section>
 
   <section id="library" class="page">
     <h2>📥 مكتبتي بدون إنترنت</h2>
-    <p class="muted">الملفات الصوتية المحفوظة سابقاً تبقى هنا. فيديوهات YouTube لا تُحفظ دون إنترنت من خلال هذا الموقع.</p>
+    <p class="muted">الملفات الصوتية المحفوظة سابقاً تبقى هنا. روابط YouTube لا تُنزّل الفيديوهات من خلال هذا الموقع.</p>
     <div id="libraryStatus" class="status"></div>
     <div id="libraryList"></div>
   </section>
@@ -127,12 +123,6 @@ audio{width:100%;height:38px}
 </nav>
 
 <script>
-/*
- DARKNOS MUSIC
- YouTube search through a public Invidious instance.
- No API key required, but the public service may be unavailable.
-*/
-const SEARCH_ENDPOINT = 'https://inv.nadeko.net/api/v1/search';
 const DB_NAME = 'darknos-music-db';
 const STORE = 'audio';
 
@@ -140,7 +130,6 @@ let db = null;
 let lastResults = [];
 let favorites = [];
 let currentObjectUrl = null;
-let searchToken = 0;
 const itemsById = new Map();
 const $ = id => document.getElementById(id);
 
@@ -153,7 +142,7 @@ function showPage(name) {
   );
   if (name === 'favorites') renderFavorites();
   if (name === 'library') renderLibrary();
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function quickSearch(q) {
@@ -162,17 +151,36 @@ function quickSearch(q) {
   searchAudio();
 }
 
-function fetchWithTimeout(url, ms = 15000) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), ms);
-  return fetch(url, {signal: controller.signal})
-    .finally(() => clearTimeout(timer));
+function searchAudio() {
+  const q = $('query').value.trim();
+  if (!q) {
+    $('searchStatus').textContent = 'اكتب اسم الصوت أولاً 🙂';
+    $('query').focus();
+    return;
+  }
+
+  const url = 'https://www.youtube.com/results?search_query=' +
+    encodeURIComponent(q);
+
+  $('searchStatus').textContent = 'جاري فتح نتائج YouTube…';
+  $('results').replaceChildren();
+  $('resultsCount').textContent = '';
+
+  // فتح صفحة النتائج الرسمية دون API أو خادم وسيط.
+  const opened = window.open(url, '_blank');
+
+  if (!opened) {
+    // بديل إذا منع المتصفح فتح نافذة جديدة.
+    window.location.href = url;
+  } else {
+    $('searchStatus').textContent =
+      'تم فتح YouTube. نتائج البحث موجودة بالصفحة الجديدة 💜';
+  }
 }
 
 function esc(value) {
   return String(value ?? '').replace(/[&<>"']/g, c => ({
-    '&':'&amp;', '<':'&lt;', '>':'&gt;',
-    '"':'&quot;', "'":'&#39;'
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
   })[c]);
 }
 
@@ -180,118 +188,21 @@ function safeUrl(url) {
   return /^https?:\/\//i.test(url || '') ? url : '#';
 }
 
-function clip(value, max) {
-  const s = String(value ?? '');
-  return s.length > max ? s.slice(0, max) + '…' : s;
-}
-
-async function searchAudio() {
-  const q = $('query').value.trim();
-
-  if (!q) {
-    $('searchStatus').textContent = 'اكتب اسم الصوت أولاً 🙂';
-    return;
-  }
-
-  const token = ++searchToken;
-  $('searchBtn').disabled = true;
-  $('searchStatus').textContent = 'جاري البحث في YouTube…';
-  $('results').replaceChildren();
-  $('resultsCount').textContent = '';
-  $('ytPlayer').classList.add('hidden');
-  $('ytPlayer').replaceChildren();
-
-  try {
-    const url = new URL(SEARCH_ENDPOINT);
-    url.searchParams.set('q', q);
-    url.searchParams.set('type', 'video');
-
-    const response = await fetchWithTimeout(url.toString());
-
-    if (!response.ok) {
-      throw new Error('خادم البحث غير متاح حالياً');
-    }
-
-    const data = await response.json();
-
-    if (token !== searchToken) return;
-
-    if (!Array.isArray(data)) {
-      throw new Error('وصلت بيانات غير متوقعة');
-    }
-
-    lastResults = data
-      .filter(v => v && v.videoId && v.title)
-      .slice(0, 20)
-      .map(v => {
-        const id = String(v.videoId);
-        const item = {
-          id: 'yt_' + id,
-          videoId: id,
-          kind: 'youtube',
-          title: v.title,
-          artist: v.author || 'YouTube',
-          description: 'فيديو من YouTube',
-          source: 'https://www.youtube.com/watch?v=' + encodeURIComponent(id),
-          url: 'https://www.youtube.com/watch?v=' + encodeURIComponent(id),
-          thumbnail:
-            v.videoThumbnails?.find(t => t.quality === 'medium')?.url ||
-            v.videoThumbnails?.[0]?.url || ''
-        };
-        itemsById.set(item.id, item);
-        return item;
-      });
-
-    if (lastResults.length) {
-      $('searchStatus').textContent =
-        'تم البحث. اختار الفيديو اللي تريده من النتائج 💜';
-    } else {
-      $('searchStatus').textContent =
-        'ما لقينا نتائج. جرّب كلمة ثانية.';
-    }
-
-    renderResults();
-  } catch (error) {
-    if (token !== searchToken) return;
-    $('searchStatus').textContent =
-      'تعذر الاتصال بخدمة البحث. ممكن الخادم متوقف أو الاتصال بطيء. جرّب مرة ثانية.';
-  } finally {
-    if (token === searchToken) $('searchBtn').disabled = false;
-  }
-}
-
-function renderResults() {
-  $('resultsCount').textContent = lastResults.length
-    ? 'عدد النتائج: ' + lastResults.length : '';
-  $('results').innerHTML = lastResults.map(resultHTML).join('');
-}
-
 function resultHTML(item) {
-  const isYT = item.kind === 'youtube';
-  const isFav = favorites.some(f => String(f.id) === String(item.id));
   const id = esc(item.id);
-
-  const thumbnail = isYT && item.thumbnail
-    ? `<img class="yt-thumb" src="${esc(item.thumbnail)}" alt="" loading="lazy">`
-    : '';
-
-  const playLabel = isYT ? '▶️ تشغيل الفيديو' : '▶️ تشغيل';
-  const saveButton = isYT ? '' :
-    `<button class="small secondary" data-act="save" data-id="${id}">📥 حفظ دون إنترنت</button>`;
-
-  const sourceButton = item.source
-    ? `<a class="button secondary small" href="${esc(safeUrl(item.source))}" target="_blank" rel="noopener noreferrer">فتح المصدر</a>`
-    : '';
+  const isFav = favorites.some(f => String(f.id) === String(item.id));
+  const isYT = item.kind === 'youtube' || item.videoId;
 
   return `<article class="result">
-    ${thumbnail}
     <div class="result-title">${esc(item.title)}</div>
     <div class="result-meta">${esc(item.artist || item.credit || '')}<br>${esc(item.description || '')}</div>
     <div class="actions">
-      <button class="small" data-act="play" data-id="${id}">${playLabel}</button>
+      ${isYT
+        ? `<a class="button small" href="${esc(safeUrl(item.url))}" target="_blank" rel="noopener noreferrer">▶️ فتح الفيديو في YouTube</a>`
+        : `<button class="small" data-act="play" data-id="${id}">▶️ تشغيل</button>
+           <button class="small secondary" data-act="save" data-id="${id}">📥 حفظ دون إنترنت</button>`}
       <button class="small secondary" data-act="fav" data-id="${id}">${isFav ? '💜 بالمفضلة' : '♡ أضف للمفضلة'}</button>
-      ${saveButton}
-      ${sourceButton}
+      <a class="button secondary small" href="${esc(safeUrl(item.source || item.url))}" target="_blank" rel="noopener noreferrer">فتح المصدر</a>
     </div>
   </article>`;
 }
@@ -313,13 +224,7 @@ document.addEventListener('click', event => {
 
 function playItem(id) {
   const item = itemsById.get(String(id));
-  if (!item) return;
-
-  if (item.kind === 'youtube') {
-    playYouTube(item);
-    return;
-  }
-
+  if (!item || !item.url) return;
   if (currentObjectUrl) {
     URL.revokeObjectURL(currentObjectUrl);
     currentObjectUrl = null;
@@ -327,32 +232,13 @@ function playItem(id) {
   setPlayer(item.url, item.title);
 }
 
-function playYouTube(item) {
-  const box = $('ytPlayer');
-  box.replaceChildren();
-  box.classList.remove('hidden');
-
-  const title = document.createElement('h3');
-  title.textContent = item.title;
-
-  const frame = document.createElement('iframe');
-  frame.src = 'https://www.youtube-nocookie.com/embed/' +
-    encodeURIComponent(item.videoId);
-  frame.title = item.title;
-  frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-  frame.allowFullscreen = true;
-  frame.loading = 'lazy';
-
-  box.append(title, frame);
-  box.scrollIntoView({behavior: 'smooth', block: 'start'});
-}
-
 function setPlayer(src, title) {
   $('player').classList.remove('hidden');
   $('playerTitle').textContent = title;
   $('audio').src = src;
   $('audio').play().catch(() => {
-    $('playerTitle').textContent = title + ' • اضغط تشغيل إذا ما بدأ تلقائياً';
+    $('playerTitle').textContent =
+      title + ' • إذا ما اشتغل، جرّب تشغيله من جديد';
   });
 }
 
@@ -378,12 +264,21 @@ function toggleFavorite(id) {
   if (!item) return;
 
   const index = favorites.findIndex(f => String(f.id) === String(id));
-  if (index >= 0) favorites.splice(index, 1);
-  else favorites.unshift(item);
+  if (index >= 0) {
+    favorites.splice(index, 1);
+  } else {
+    favorites.unshift(item);
+  }
 
   saveFavorites();
-  if ($('favorites').classList.contains('active')) renderFavorites();
-  if (lastResults.length) renderResults();
+  renderFavorites();
+  renderResults();
+}
+
+function renderResults() {
+  $('resultsCount').textContent = lastResults.length
+    ? 'عدد العناصر: ' + lastResults.length : '';
+  $('results').innerHTML = lastResults.map(resultHTML).join('');
 }
 
 function renderFavorites() {
@@ -403,7 +298,7 @@ function openDB() {
     request.onupgradeneeded = () => {
       const database = request.result;
       if (!database.objectStoreNames.contains(STORE)) {
-        database.createObjectStore(STORE, {keyPath: 'id'});
+        database.createObjectStore(STORE, {keyPath:'id'});
       }
     };
     request.onsuccess = () => {
@@ -426,26 +321,25 @@ function dbRequest(mode, operation) {
 
 async function saveOffline(id) {
   const item = itemsById.get(String(id));
-  if (!item || item.kind === 'youtube') return;
+  if (!item || !item.url) return;
 
   try {
     if (!db) await openDB();
     $('searchStatus').textContent = 'جاري حفظ الملف على الجهاز…';
 
-    const response = await fetchWithTimeout(item.url, 60000);
-    if (!response.ok) throw new Error('تعذر تنزيل الملف');
+    const response = await fetch(item.url);
+    if (!response.ok) throw new Error();
 
     const blob = await response.blob();
     await dbRequest('readwrite', store =>
-      store.put({...item, blob, savedAt: Date.now()})
+      store.put({...item,blob,savedAt:Date.now()})
     );
 
-    $('searchStatus').textContent =
-      'انحفظ الملف بالمكتبة المحلية ✅';
+    $('searchStatus').textContent = 'انحفظ الملف بالمكتبة المحلية ✅';
     if ($('library').classList.contains('active')) renderLibrary();
   } catch {
     $('searchStatus').textContent =
-      'ما كدرنا نحفظ الملف. يمكن المصدر منع التنزيل أو الاتصال ضعيف.';
+      'ما كدرنا نحفظ الملف. قد يكون المصدر منع التنزيل.';
   }
 }
 
@@ -459,17 +353,16 @@ async function renderLibrary() {
       : 'مكتبتك فارغة حالياً.';
 
     $('libraryList').innerHTML = items
-      .sort((a, b) => (b.savedAt || 0) - (a.savedAt || 0))
+      .sort((a,b) => (b.savedAt || 0) - (a.savedAt || 0))
       .map(item => {
         const id = esc(item.id);
         return `<article class="result library-item">
           <div class="result-title">${esc(item.title)}</div>
-          <div class="result-meta">${esc(item.description || 'راجع المصدر')}</div>
+          <div class="result-meta">${esc(item.description || 'ملف محفوظ')}</div>
           <div class="actions">
             <button class="small" data-act="offplay" data-id="${id}">▶️ تشغيل بدون إنترنت</button>
             <button class="small secondary" data-act="offexport" data-id="${id}">⬇️ حفظ كملف بالجهاز</button>
             <button class="small danger" data-act="offdelete" data-id="${id}">🗑️ حذف</button>
-            <a class="button secondary small" href="${esc(safeUrl(item.source))}" target="_blank" rel="noopener">المصدر</a>
           </div>
         </article>`;
       }).join('');
@@ -528,12 +421,6 @@ async function deleteOffline(id) {
 
 $('query').addEventListener('keydown', event => {
   if (event.key === 'Enter') searchAudio();
-});
-
-window.addEventListener('error', event => {
-  if ($('searchStatus')) {
-    $('searchStatus').textContent = 'صار خطأ غير متوقع. جرّب مرة ثانية.';
-  }
 });
 
 loadFavorites();
