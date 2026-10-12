@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#100b18">
+<title>DARKNOS MUSIC</title>
+<style>
+:root{--bg:#09070d;--panel:#15101f;--panel2:#20152e;--purple:#a855f7;--purple2:#7c3aed;--text:#f8f5ff;--muted:#b8abc9;--line:#332442;--green:#65e6a4}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#241036 0,#09070d 55%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;padding-bottom:154px}
+header{padding:24px 16px 18px;text-align:center;background:linear-gradient(135deg,#1b0e2a,#0c0912);border-bottom:1px solid var(--line)}
+.logo{font-size:clamp(25px,7vw,36px);font-weight:900;letter-spacing:1px;color:#e9d5ff;text-shadow:0 0 22px #9333ea66}.logo span{color:#c084fc}
+header p{margin:8px 0 0;color:var(--muted);font-size:14px}
+main{max-width:760px;margin:auto;padding:16px}
+.page{display:none}.page.active{display:block}
+h2{font-size:21px;margin:8px 0 12px}h3{margin:0 0 8px;font-size:17px}
+.card,.hero,.result,.empty{background:linear-gradient(145deg,#1a1324,#110d18);border:1px solid var(--line);border-radius:18px;padding:15px;margin:12px 0;box-shadow:0 8px 24px #0003}
+.hero{padding:22px 18px;background:linear-gradient(135deg,#32134e,#171020);border-color:#5b2b7b}
+.hero p,.muted{color:var(--muted);line-height:1.65;font-size:14px}
+input,select{width:100%;background:#0c0911;color:var(--text);border:1px solid #49335c;border-radius:13px;padding:14px;font:inherit;outline:none}
+input:focus,select:focus{border-color:var(--purple);box-shadow:0 0 0 3px #a855f722}
+button,.button{border:0;border-radius:12px;padding:12px 14px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:white;font:inherit;font-weight:750;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+button:disabled{opacity:.5;cursor:wait}.secondary{background:#2a2036;border:1px solid #49335c}.small{padding:9px 11px;font-size:13px}.danger{background:#44202e}.searchrow{display:flex;gap:8px;margin-top:9px}.searchrow button{white-space:nowrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.chip{background:#21152e;border:1px solid #49335c;color:#e9d5ff;border-radius:999px;padding:8px 11px;font-size:13px}
+.result{padding:14px}.result-title{font-weight:800;font-size:16px;overflow-wrap:anywhere}.result-meta{font-size:12px;color:var(--muted);margin:6px 0 12px;line-height:1.5}.actions{display:flex;gap:8px;flex-wrap:wrap}.status{color:#d8b4fe;font-size:13px;min-height:20px;margin:10px 2px}.count{color:var(--muted);font-size:13px}
+.bottom-nav{position:fixed;z-index:10;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#100b18f2;backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+.navbtn{display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center;background:transparent;color:#a99ab9;border:1px solid transparent;padding:7px 3px;font-size:12px}
+.navbtn .ico{font-size:19px}.navbtn.active{color:#f3e8ff;background:#2b1740;border-color:#5b2b7b}
+.player{position:fixed;z-index:9;bottom:68px;left:10px;right:10px;max-width:740px;margin:auto;padding:10px 12px;background:#1a1225f5;border:1px solid #583777;border-radius:16px;box-shadow:0 8px 25px #0008;backdrop-filter:blur(12px)}
+.player-title{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:5px;color:#e9d5ff}
+audio{width:100%;height:38px}
+.hidden{display:none!important}.library-item{display:flex;flex-direction:column;gap:9px}
+.footer-note{font-size:12px;color:#8e7fa0;text-align:center;padding:20px 4px;line-height:1.6}
+@media(min-width:600px){main{padding:22px}.player{bottom:76px}.bottom-nav{padding-left:max(8px,calc((100% - 760px)/2));padding-right:max(8px,calc((100% - 760px)/2))}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">DARKNOS <span>MUSIC</span></div>
+  <p>صوتك المفضل… وياك حتى بدون إنترنت 💜</p>
+</header>
+<main>
+  <section id="home" class="page active">
+    <div class="hero">
+      <h2>هلا بيك بمكتبتك الصوتية 🎧</h2>
+      <p>ابحث عن تلاوات القرآن، القصائد، أصوات الطبيعة وغيرها. جرّب البحث بالعربي، وإذا ما ظهرت نتائج كافية جرّب كلمة إنجليزية همين.</p>
+      <button onclick="showPage('search')">🔎 ابدأ البحث</button>
+      <button class="secondary" onclick="showPage('library')">📥 مكتبتي بدون إنترنت</button>
+    </div>
+    <div class="card">
+      <h3>✨ جرّب تبحث عن</h3>
+      <div class="chips">
+        <button class="chip" onclick="quickSearch('قرآن كريم')">قرآن كريم</button>
+        <button class="chip" onclick="quickSearch('قصائد عربية')">قصائد عربية</button>
+        <button class="chip" onclick="quickSearch('مطر')">صوت المطر</button>
+        <button class="chip" onclick="quickSearch('بحر')">صوت البحر</button>
+        <button class="chip" onclick="quickSearch('birds singing')">تغريد الطيور</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>💡 شلون البحث يشتغل؟</h3>
+      <p class="muted">الموقع يبحث بمكتبة Wikimedia Commons المفتوحة. النتائج تعتمد على الملفات الموجودة هناك، مو كل أغنية موجودة بالإنترنت راح تظهر. كل ملف يعرض رابط مصدره وترخيصه إذا كانت المعلومات متوفرة.</p>
+    </div>
+  </section>
+
+  <section id="search" class="page">
+    <h2>🔎 البحث عن صوت</h2>
+    <div class="card">
+      <label for="query">اكتب اسم الصوت بالعربي أو بالإنجليزي</label>
+      <div class="searchrow">
+        <input id="query" type="search" placeholder="مثلاً: قرآن كريم أو rain" autocomplete="off">
+        <button id="searchBtn" onclick="searchAudio()">بحث</button>
+      </div>
+      <div class="chips">
+        <button class="chip" onclick="quickSearch('قرآن كريم')">قرآن</button>
+        <button class="chip" onclick="quickSearch('قصائد عربية')">قصائد</button>
+        <button class="chip" onclick="quickSearch('مطر')">مطر</button>
+        <button class="chip" onclick="quickSearch('قطة')">قطط</button>
+        <button class="chip" onclick="quickSearch('ocean waves')">أمواج البحر</button>
+      </div>
+      <div id="searchStatus" class="status" aria-live="polite"></div>
+    </div>
+    <div id="resultsCount" class="count"></div>
+    <div id="results"></div>
+  </section>
+
+  <section id="favorites" class="page">
+    <h2>💜 المفضلة</h2>
+    <p class="muted">احفظ الملفات اللي تعجبك حتى ترجع إلها بسرعة. المفضلة تنحفظ على هذا الجهاز.</p>
+    <div id="favoritesList"></div>
+  </section>
+
+  <section id="library" class="page">
+    <h2>📥 مكتبتي بدون إنترنت</h2>
+    <p class="muted">الملفات المحفوظة هنا تشتغل بدون إنترنت على نفس الجهاز والمتصفح. إذا مسحت بيانات المتصفح ممكن تنحذف المكتبة.</p>
+    <div id="libraryStatus" class="status"></div>
+    <div id="libraryList"></div>
+  </section>
+  <div class="footer-note">DARKNOS MUSIC • مصادر مفتوحة قدر الإمكان • احترم حقوق أصحاب الملفات</div>
+</main>
+
+<div id="player" class="player hidden">
+  <div id="playerTitle" class="player-title">ماكو صوت مشتغل هسه</div>
+  <audio id="audio" controls preload="none"></audio>
+</div>
+
+<nav class="bottom-nav" aria-label="التنقل الرئيسي">
+  <button class="navbtn active" data-page="home" onclick="showPage('home')"><span class="ico">🏠</span>الرئيسية</button>
+  <button class="navbtn" data-page="search" onclick="showPage('search')"><span class="ico">🔎</span>البحث</button>
+  <button class="navbtn" data-page="favorites" onclick="showPage('favorites')"><span class="ico">💜</span>المفضلة</button>
+  <button class="navbtn" data-page="library" onclick="showPage('library')"><span class="ico">📥</span>مكتبتي</button>
+</nav>
+
+<script>
+const API='https://commons.wikimedia.org/w/api.php';
+const DB_NAME='darknos-music-db', STORE='audio';
+let db=null, lastResults=[], favorites=[];
+const $=id=>document.getElementById(id);
+
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===name));
+  document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
+  if(name==='favorites') renderFavorites();
+  if(name==='library') renderLibrary();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function quickSearch(q){$('query').value=q;showPage('search');searchAudio();}
+function normalize(s){return (s||'').toLowerCase().replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').trim();}
+const translations=[
+  [/قرآن|قران|تلاوة|تلاوات|سورة|سور|القرآن الكريم|قران كريم/i,['Quran recitation','Quran audio','Holy Quran']],
+  [/قصيدة|قصائد|شعر|شاعر|شعراء|ابيات/i,['Arabic poetry','Arabic poem recitation']],
+  [/مطر|امطار|شتاء/i,['rain sound','rain ambience']],
+  [/بحر|موج|امواج|محيط/i,['ocean waves','sea waves sound']],
+  [/طيور|عصافير|تغريد/i,['birds singing','birdsong']],
+  [/قطة|قطط|قط|مواء/i,['cat meowing','cat sounds']],
+  [/كلب|كلاب|نباح/i,['dog barking','dog sounds']],
+  [/سيارة|سيارات|محرك|محركات/i,['car engine sound','engine sound']],
+  [/رعد|برق|عاصفة/i,['thunderstorm sound','thunder and rain']],
+  [/ريح|رياح|هواء/i,['wind sound','wind ambience']],
+  [/نار|حطب|مدفأة/i,['fire crackling','fireplace sound']],
+  [/بيانو/i,['piano music']],
+  [/عود/i,['oud music','Arabic oud']],
+  [/ناي/i,['ney flute music']],
+  [/ضحك/i,['laughter sound']],
+  [/خطوات|مشي/i,['footsteps sound']],
+  [/جرس|اجراس/i,['bell sound']]
+];
+function queryVariants(q){
+  const variants=[q];
+  for(const [re,arr] of translations){if(re.test(q)){variants.push(...arr);break;}}
+  if(/[ء-ي]/.test(q) && !translations.some(([re])=>re.test(q))) variants.push(q+' audio');
+  return [...new Set(variants)].slice(0,3);
+}
+function openDB(){
+ return new Promise((resolve,reject)=>{
+  if(!('indexedDB' in window)){reject(new Error('المتصفح ما يدعم التخزين المحلي'));return;}
+  const req=indexedDB.open(DB_NAME,1);
+  req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id'});};
+  req.onsuccess=()=>{db=req.result;resolve(db);};req.onerror=()=>reject(req.error);
+ });
+}
+function dbRequest(mode,fn){
+ return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,mode),store=tx.objectStore(STORE);let req=fn(store);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});
+}
+async function searchAudio(){
+ const q=$('query').value.trim(); if(!q){$('searchStatus').textContent='اكتب اسم الصوت أولاً 🙂';return;}
+ $('searchBtn').disabled=true;$('searchStatus').textContent='جاري البحث بالعربي والإنجليزي…';$('results').innerHTML='';$('resultsCount').textContent='';
+ try{
+  const variants=queryVariants(q), map=new Map();
+  for(const term of variants){
+   const url=new URL(API);url.search=new URLSearchParams({action:'query',format:'json',origin:'*',generator:'search',gsrsearch:term+' filetype:audio',gsrnamespace:'6',gsrlimit:'12',prop:'imageinfo',iiprop:'url|mime|mediatype|extmetadata',iiurlwidth:'300'}).toString();
+   const r=await fetch(url);if(!r.ok)continue;const data=await r.json();
+   for(const p of Object.values(data.query?.pages||{})){
+    const info=p.imageinfo?.[0];if(!info||!info.url)continue;
+    const mime=(info.mime||'').toLowerCase();
+    if(!(mime.startsWith('audio/')||/\.(ogg|oga|mp3|wav|flac|opus|mid|midi)(\?|$)/i.test(info.url)))continue;
+    const meta=info.extmetadata||{};
+    map.set(p.pageid,{id:String(p.pageid),page:p.title, title:p.title.replace(/^File:/,''),url:info.url,mime,description:meta.UsageTerms?.value||meta.LicenseShortName?.value||'تحقق من الترخيص في صفحة المصدر',artist:stripHtml(meta.Artist?.value||''),credit:stripHtml(meta.Credit?.value||''),source:'https://commons.wikimedia.org/?curid='+p.pageid,thumbnail:info.thumburl||''});
+   }
+   if(map.size>=24)break;
+  }
+  lastResults=[...map.values()].slice(0,24);
+  $('searchStatus').textContent=lastResults.length?'تم البحث. تأكد من الترخيص قبل إعادة نشر أي ملف.':'ما لقينا نتائج صوتية مناسبة. جرّب كلمة ثانية أو اكتبها بالإنجليزي.';
+  $('resultsCount').textContent=lastResults.length?`عدد النتائج: ${lastResults.length}`:'';
+  $('results').innerHTML=lastResults.map(item=>resultHTML(item,'search')).join('');
+ }catch(e){$('searchStatus').textContent='صار خطأ بالاتصال. تأكد من الإنترنت وجرب مرة ثانية.';}
+ finally{$('searchBtn').disabled=false;}
+}
+function stripHtml(s){const d=document.createElement('div');d.innerHTML=s;return d.textContent||d.innerText||'';}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function resultHTML(item,where='search'){
+ const isFav=favorites.some(f=>String(f.id)===String(item.id));
+ return `<article class="result"><div class="result-title">${esc(item.title)}</div><div class="result-meta">${esc(item.artist||item.credit||'المصدر: Wikimedia Commons')}<br>الترخيص/المعلومات: ${esc(item.description||'راجع صفحة المصدر')}</div><div class="actions"><button class="small" onclick="playItem('${encodeURIComponent(JSON.stringify(item))}')">▶️ تشغيل</button><button class="small secondary" onclick="toggleFavorite('${encodeURIComponent(JSON.stringify(item))}')">${isFav?'💜 بالمفضلة':'♡ أضف للمفضلة'}</button><button class="small secondary" onclick="saveOffline('${encodeURIComponent(JSON.stringify(item))}')">📥 حفظ دون إنترنت</button><a class="button secondary small" href="${esc(item.source)}" target="_blank" rel="noopener">المصدر</a></div></article>`;
+}
+function playItem(encoded){
+ const item=JSON.parse(decodeURIComponent(encoded));
+ $('player').classList.remove('hidden');$('playerTitle').textContent=item.title;
+ $('audio').src=item.url;$('audio').play().catch(()=>{$('playerTitle').textContent='اضغط تشغيل من مشغل الصوت إذا ما بدأ تلقائياً';});
+}
+function loadFavorites(){try{favorites=JSON.parse(localStorage.getItem('darknos-favorites')||'[]');if(!Array.isArray(favorites))favorites=[];}catch{favorites=[];}}
+function saveFavorites(){localStorage.setItem('darknos-favorites',JSON.stringify(favorites));}
+function toggleFavorite(encoded){
+ const item=JSON.parse(decodeURIComponent(encoded)),i=favorites.findIndex(f=>String(f.id)===String(item.id));
+ if(i>=0)favorites.splice(i,1);else favorites.unshift(item);
+ saveFavorites();if($('favorites').classList.contains('active'))renderFavorites();
+ if($('results').innerHTML) $('results').innerHTML=lastResults.map(x=>resultHTML(x)).join('');
+}
+function renderFavorites(){
+ $('favoritesList').innerHTML=favorites.length?favorites.map(item=>resultHTML(item,'favorites')).join(''):'<div class="empty">بعدك ما ضفت شي للمفضلة 💜</div>';
+}
+async function saveOffline(encoded){
+ const item=JSON.parse(decodeURIComponent(encoded));
+ try{
+  if(!db)await openDB();
+  $('searchStatus').textContent='جاري حفظ الملف على الجهاز…';
+  const r=await fetch(item.url);if(!r.ok)throw new Error('تعذر تنزيل الملف');
+  const blob=await r.blob();
+  await dbRequest('readwrite',store=>store.put({...item,blob,savedAt:Date.now()}));
+  $('searchStatus').textContent='انحفظ الملف بالمكتبة المحلية ✅ تقدر تسمعه بدون إنترنت.';
+  if($('library').classList.contains('active'))renderLibrary();
+ }catch(e){$('searchStatus').textContent='ما كدرنا نحفظ الملف. يمكن المصدر منع التنزيل أو الاتصال ضعيف.';}
+}
+async function renderLibrary(){
+ try{
+  if(!db)await openDB();
+  const items=await dbRequest('readonly',store=>store.getAll());
+  $('libraryStatus').textContent=items.length?`عندك ${items.length} ملف محفوظ على الجهاز.`:'مكتبتك فارغة حالياً.';
+  $('libraryList').innerHTML=items.sort((a,b)=>(b.savedAt||0)-(a.savedAt||0)).map(item=>`<article class="result library-item"><div class="result-title">${esc(item.title)}</div><div class="result-meta">${esc(item.description||'راجع صفحة المصدر')}</div><div class="actions"><button class="small" onclick="playOffline('${encodeURIComponent(String(item.id))}')">▶️ تشغيل بدون إنترنت</button><button class="small secondary" onclick="exportOffline('${encodeURIComponent(String(item.id))}')">⬇️ حفظ كملف بالجهاز</button><button class="small danger" onclick="deleteOffline('${encodeURIComponent(String(item.id))}')">🗑️ حذف</button><a class="button secondary small" href="${esc(item.source)}" target="_blank" rel="noopener">المصدر</a></div></article>`).join('');
+ }catch(e){$('libraryStatus').textContent='تعذر فتح المكتبة. افتح الموقع بالإنترنت مرة، وتأكد من المتصفح.';$('libraryList').innerHTML='';}
+}
+async function getOffline(id){if(!db)await openDB();return dbRequest('readonly',store=>store.get(id));}
+async function playOffline(encodedId){
+ try{const item=await getOffline(decodeURIComponent(encodedId));if(!item)throw new Error();const url=URL.createObjectURL(item.blob);$('player').classList.remove('hidden');$('playerTitle').textContent=item.title+' • محفوظ بدون إنترنت';$('audio').src=url;$('audio').play().catch(()=>{});}
+ catch{$('libraryStatus').textContent='ما كدرنا نشغل الملف المحفوظ.';}
+}
+async function exportOffline(encodedId){
+ try{const item=await getOffline(decodeURIComponent(encodedId));if(!item)throw new Error();const url=URL.createObjectURL(item.blob),a=document.createElement('a');a.href=url;a.download=(item.title||'audio').replace(/[\\/:*?"<>|]/g,'_');document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);$('libraryStatus').textContent='طلبنا تنزيل الملف إلى جهازك. شوف إشعار التنزيلات.';}
+ catch{$('libraryStatus').textContent='تعذر تصدير الملف.';}
+}
+async function deleteOffline(encodedId){
+ try{if(!db)await openDB();await dbRequest('readwrite',store=>store.delete(decodeURIComponent(encodedId)));renderLibrary();}
+ catch{$('libraryStatus').textContent='تعذر حذف الملف.';}
+}
+$('query').addEventListener('keydown',e=>{if(e.key==='Enter')searchAudio();});
+loadFavorites();
+openDB().catch(()=>{});
+</script>
+</body>
+</html>
