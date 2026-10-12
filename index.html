@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -6,10 +7,12 @@
 <meta name="theme-color" content="#100b18">
 <title>DARKNOS MUSIC</title>
 <style>
-:root{--bg:#09070d;--panel:#15101f;--panel2:#20152e;--purple:#a855f7;--purple2:#7c3aed;--text:#f8f5ff;--muted:#b8abc9;--line:#332442;--green:#65e6a4}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#241036 0,#09070d 55%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;padding-bottom:154px}
+:root{--bg:#09070d;--panel:#15101f;--panel2:#20152e;--purple:#a855f7;--purple2:#7c3aed;--text:#f8f5ff;--muted:#b8abc9;--line:#332442}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#241036 0,#09070d 55%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;padding-bottom:154px}
 header{padding:24px 16px 18px;text-align:center;background:linear-gradient(135deg,#1b0e2a,#0c0912);border-bottom:1px solid var(--line)}
-.logo{font-size:clamp(25px,7vw,36px);font-weight:900;letter-spacing:1px;color:#e9d5ff;text-shadow:0 0 22px #9333ea66}.logo span{color:#c084fc}
+.logo{font-size:clamp(25px,7vw,36px);font-weight:900;letter-spacing:1px;color:#e9d5ff;text-shadow:0 0 22px #9333ea66}
+.logo span{color:#c084fc}
 header p{margin:8px 0 0;color:var(--muted);font-size:14px}
 main{max-width:760px;margin:auto;padding:16px}
 .page{display:none}.page.active{display:block}
@@ -17,12 +20,20 @@ h2{font-size:21px;margin:8px 0 12px}h3{margin:0 0 8px;font-size:17px}
 .card,.hero,.result,.empty{background:linear-gradient(145deg,#1a1324,#110d18);border:1px solid var(--line);border-radius:18px;padding:15px;margin:12px 0;box-shadow:0 8px 24px #0003}
 .hero{padding:22px 18px;background:linear-gradient(135deg,#32134e,#171020);border-color:#5b2b7b}
 .hero p,.muted{color:var(--muted);line-height:1.65;font-size:14px}
-input,select{width:100%;background:#0c0911;color:var(--text);border:1px solid #49335c;border-radius:13px;padding:14px;font:inherit;outline:none}
-input:focus,select:focus{border-color:var(--purple);box-shadow:0 0 0 3px #a855f722}
+input{width:100%;background:#0c0911;color:var(--text);border:1px solid #49335c;border-radius:13px;padding:14px;font:inherit;outline:none}
+input:focus{border-color:var(--purple);box-shadow:0 0 0 3px #a855f722}
 button,.button{border:0;border-radius:12px;padding:12px 14px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:white;font:inherit;font-weight:750;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px}
-button:disabled{opacity:.5;cursor:wait}.secondary{background:#2a2036;border:1px solid #49335c}.small{padding:9px 11px;font-size:13px}.danger{background:#44202e}.searchrow{display:flex;gap:8px;margin-top:9px}.searchrow button{white-space:nowrap}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.chip{background:#21152e;border:1px solid #49335c;color:#e9d5ff;border-radius:999px;padding:8px 11px;font-size:13px}
-.result{padding:14px}.result-title{font-weight:800;font-size:16px;overflow-wrap:anywhere}.result-meta{font-size:12px;color:var(--muted);margin:6px 0 12px;line-height:1.5;overflow-wrap:anywhere}.actions{display:flex;gap:8px;flex-wrap:wrap}.status{color:#d8b4fe;font-size:13px;min-height:20px;margin:10px 2px}.count{color:var(--muted);font-size:13px}
+button:disabled{opacity:.5;cursor:wait}
+.secondary{background:#2a2036;border:1px solid #49335c}
+.small{padding:9px 11px;font-size:13px}.danger{background:#44202e}
+.searchrow{display:flex;gap:8px;margin-top:9px}.searchrow button{white-space:nowrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.chip{background:#21152e;border:1px solid #49335c;color:#e9d5ff;border-radius:999px;padding:8px 11px;font-size:13px}
+.result{padding:14px}.result-title{font-weight:800;font-size:16px;overflow-wrap:anywhere}
+.result-meta{font-size:12px;color:var(--muted);margin:6px 0 12px;line-height:1.5;overflow-wrap:anywhere}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.status{color:#d8b4fe;font-size:13px;min-height:20px;margin:10px 2px}
+.count{color:var(--muted);font-size:13px}
 .bottom-nav{position:fixed;z-index:10;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#100b18f2;backdrop-filter:blur(14px);border-top:1px solid var(--line)}
 .navbtn{display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center;background:transparent;color:#a99ab9;border:1px solid transparent;padding:7px 3px;font-size:12px}
 .navbtn .ico{font-size:19px}.navbtn.active{color:#f3e8ff;background:#2b1740;border-color:#5b2b7b}
@@ -31,6 +42,8 @@ button:disabled{opacity:.5;cursor:wait}.secondary{background:#2a2036;border:1px 
 audio{width:100%;height:38px}
 .hidden{display:none!important}.library-item{display:flex;flex-direction:column;gap:9px}
 .footer-note{font-size:12px;color:#8e7fa0;text-align:center;padding:20px 4px;line-height:1.6}
+.yt-thumb{width:100%;max-width:340px;aspect-ratio:16/9;object-fit:cover;border-radius:12px;background:#09070d}
+#ytPlayer iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px}
 @media(min-width:600px){main{padding:22px}.player{bottom:76px}.bottom-nav{padding-left:max(8px,calc((100% - 760px)/2));padding-right:max(8px,calc((100% - 760px)/2))}}
 </style>
 </head>
@@ -39,11 +52,12 @@ audio{width:100%;height:38px}
   <div class="logo">DARKNOS <span>MUSIC</span></div>
   <p>صوتك المفضل… وياك حتى بدون إنترنت 💜</p>
 </header>
+
 <main>
   <section id="home" class="page active">
     <div class="hero">
       <h2>هلا بيك بمكتبتك الصوتية 🎧</h2>
-      <p>ابحث عن تلاوات القرآن، القصائد، أصوات الطبيعة وغيرها. جرّب البحث بالعربي، وإذا ما ظهرت نتائج كافية جرّب كلمة إنجليزية هم.</p>
+      <p>ابحث عن تلاوات القرآن، القصائد، الأصوات وغيرها من خلال نتائج YouTube.</p>
       <button onclick="showPage('search')">🔎 ابدأ البحث</button>
       <button class="secondary" onclick="showPage('library')">📥 مكتبتي بدون إنترنت</button>
     </div>
@@ -52,51 +66,52 @@ audio{width:100%;height:38px}
       <div class="chips">
         <button class="chip" onclick="quickSearch('قرآن كريم')">قرآن كريم</button>
         <button class="chip" onclick="quickSearch('قصائد عربية')">قصائد عربية</button>
-        <button class="chip" onclick="quickSearch('مطر')">صوت المطر</button>
-        <button class="chip" onclick="quickSearch('بحر')">صوت البحر</button>
+        <button class="chip" onclick="quickSearch('صوت المطر')">صوت المطر</button>
+        <button class="chip" onclick="quickSearch('صوت البحر')">صوت البحر</button>
         <button class="chip" onclick="quickSearch('birds singing')">تغريد الطيور</button>
       </div>
     </div>
     <div class="card">
-      <h3>💡 شلون البحث يشتغل؟</h3>
-      <p class="muted">الموقع يبحث بمكتبة Wikimedia Commons المفتوحة. النتائج تعتمد على الملفات الموجودة هناك، مو كل أغنية موجودة بالإنترنت راح تظهر. كل ملف يعرض رابط مصدره وترخيصه إذا كانت المعلومات متوفرة.</p>
+      <h3>💡 عن البحث</h3>
+      <p class="muted">تظهر النتائج من خلال خدمة بحث وسيطة عامة. قد تتوقف الخدمة أحياناً. تشغيل الفيديو يتم عبر مشغّل YouTube الرسمي.</p>
     </div>
   </section>
 
   <section id="search" class="page">
-    <h2>🔎 البحث عن صوت</h2>
+    <h2>🔎 البحث في YouTube</h2>
     <div class="card">
       <label for="query">اكتب اسم الصوت بالعربي أو بالإنجليزي</label>
       <div class="searchrow">
-        <input id="query" type="search" placeholder="مثلاً: قرآن كريم أو rain" autocomplete="off">
-        <button id="searchBtn" onclick="searchAudio()">بحث</button>
+        <input id="query" type="search" placeholder="مثلاً: سورة الشمس أو rain" autocomplete="off">
+        <button id="searchBtn" type="button" onclick="searchAudio()">بحث</button>
       </div>
       <div class="chips">
-        <button class="chip" onclick="quickSearch('قرآن كريم')">قرآن</button>
+        <button class="chip" onclick="quickSearch('سورة الشمس')">سورة الشمس</button>
         <button class="chip" onclick="quickSearch('قصائد عربية')">قصائد</button>
-        <button class="chip" onclick="quickSearch('مطر')">مطر</button>
-        <button class="chip" onclick="quickSearch('قطة')">قطط</button>
+        <button class="chip" onclick="quickSearch('صوت المطر')">مطر</button>
+        <button class="chip" onclick="quickSearch('cat meowing')">قطط</button>
         <button class="chip" onclick="quickSearch('ocean waves')">أمواج البحر</button>
       </div>
       <div id="searchStatus" class="status" aria-live="polite"></div>
     </div>
+    <div id="ytPlayer" class="card hidden"></div>
     <div id="resultsCount" class="count"></div>
     <div id="results"></div>
   </section>
 
   <section id="favorites" class="page">
     <h2>💜 المفضلة</h2>
-    <p class="muted">احفظ الملفات اللي تعجبك حتى ترجع إلها بسرعة. المفضلة تنحفظ على هذا الجهاز.</p>
+    <p class="muted">احفظ الفيديوهات والملفات اللي تعجبك حتى ترجع إلها بسرعة.</p>
     <div id="favoritesList"></div>
   </section>
 
   <section id="library" class="page">
     <h2>📥 مكتبتي بدون إنترنت</h2>
-    <p class="muted">الملفات المحفوظة هنا تشتغل بدون إنترنت على نفس الجهاز والمتصفح. إذا مسحت بيانات المتصفح ممكن تنحذف المكتبة.</p>
+    <p class="muted">الملفات الصوتية المحفوظة سابقاً تبقى هنا. فيديوهات YouTube لا تُحفظ دون إنترنت من خلال هذا الموقع.</p>
     <div id="libraryStatus" class="status"></div>
     <div id="libraryList"></div>
   </section>
-  <div class="footer-note">DARKNOS MUSIC • مصادر مفتوحة قدر الإمكان • احترم حقوق أصحاب الملفات</div>
+  <div class="footer-note">DARKNOS MUSIC • احترام حقوق أصحاب المحتوى 💜</div>
 </main>
 
 <div id="player" class="player hidden">
@@ -112,249 +127,417 @@ audio{width:100%;height:38px}
 </nav>
 
 <script>
-const API='https://commons.wikimedia.org/w/api.php';
-const DB_NAME='darknos-music-db', STORE='audio';
-let db=null, lastResults=[], favorites=[], currentObjectUrl=null, searchToken=0;
-const itemsById=new Map();
-const $=id=>document.getElementById(id);
+/*
+ DARKNOS MUSIC
+ YouTube search through a public Invidious instance.
+ No API key required, but the public service may be unavailable.
+*/
+const SEARCH_ENDPOINT = 'https://inv.nadeko.net/api/v1/search';
+const DB_NAME = 'darknos-music-db';
+const STORE = 'audio';
 
-/* شبكة أمان: أي خطأ غير متوقع يظهر كرسالة بدل ما تصير الشاشة فاضية */
-function showFatal(msg){
-  const el=$('searchStatus'); if(el) el.textContent='صار خطأ غير متوقع: '+msg+' — جرّب مرة ثانية.';
-  const b=$('searchBtn'); if(b) b.disabled=false;
-}
-window.addEventListener('error',e=>showFatal(e.message||'خطأ'));
-window.addEventListener('unhandledrejection',e=>showFatal((e.reason&&e.reason.message)||'خطأ'));
+let db = null;
+let lastResults = [];
+let favorites = [];
+let currentObjectUrl = null;
+let searchToken = 0;
+const itemsById = new Map();
+const $ = id => document.getElementById(id);
 
-function showPage(name){
-  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===name));
-  document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
-  if(name==='favorites') renderFavorites();
-  if(name==='library') renderLibrary();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function quickSearch(q){$('query').value=q;showPage('search');searchAudio();}
-
-const translations=[
-  [/قرآن|قران|تلاوة|تلاوات|سورة|سور/i,['Quran recitation','Quran audio','Holy Quran']],
-  [/قصيدة|قصائد|شعر|شاعر|شعراء|ابيات/i,['Arabic poetry','Arabic poem recitation']],
-  [/مطر|امطار|شتاء/i,['rain sound','rain ambience']],
-  [/بحر|موج|امواج|محيط/i,['ocean waves','sea waves sound']],
-  [/طيور|عصافير|تغريد/i,['birds singing','birdsong']],
-  [/قطة|قطط|قط|مواء/i,['cat meowing','cat sounds']],
-  [/كلب|كلاب|نباح/i,['dog barking','dog sounds']],
-  [/سيارة|سيارات|محرك|محركات/i,['car engine sound','engine sound']],
-  [/رعد|برق|عاصفة/i,['thunderstorm sound','thunder and rain']],
-  [/ريح|رياح|هواء/i,['wind sound','wind ambience']],
-  [/نار|حطب|مدفأة/i,['fire crackling','fireplace sound']],
-  [/بيانو/i,['piano music']],
-  [/عود/i,['oud music','Arabic oud']],
-  [/ناي/i,['ney flute music']],
-  [/ضحك/i,['laughter sound']],
-  [/خطوات|مشي/i,['footsteps sound']],
-  [/جرس|اجراس/i,['bell sound']]
-];
-function queryVariants(q){
-  const variants=[q];
-  let matched=false;
-  for(const [re,arr] of translations){if(re.test(q)){variants.push(...arr);matched=true;break;}}
-  if(!matched && /[\u0600-\u06FF]/.test(q)) variants.push(q+' audio');
-  return [...new Set(variants)].slice(0,3);
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p =>
+    p.classList.toggle('active', p.id === name)
+  );
+  document.querySelectorAll('.navbtn').forEach(b =>
+    b.classList.toggle('active', b.dataset.page === name)
+  );
+  if (name === 'favorites') renderFavorites();
+  if (name === 'library') renderLibrary();
+  window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
-function openDB(){
- return new Promise((resolve,reject)=>{
-  if(!('indexedDB' in window)){reject(new Error('المتصفح ما يدعم التخزين المحلي'));return;}
-  const req=indexedDB.open(DB_NAME,1);
-  req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id'});};
-  req.onsuccess=()=>{db=req.result;resolve(db);};req.onerror=()=>reject(req.error);
- });
-}
-function dbRequest(mode,fn){
- return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,mode),store=tx.objectStore(STORE);let req=fn(store);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});
+function quickSearch(q) {
+  $('query').value = q;
+  showPage('search');
+  searchAudio();
 }
 
-/* طلب شبكة مع مهلة حتى ما يعلق الموقع إذا الاتصال بطيء */
-async function fetchWithTimeout(url,ms=12000){
-  const ctrl=new AbortController(), t=setTimeout(()=>ctrl.abort(),ms);
-  try{return await fetch(url,{signal:ctrl.signal});}
-  finally{clearTimeout(t);}
+function fetchWithTimeout(url, ms = 15000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  return fetch(url, {signal: controller.signal})
+    .finally(() => clearTimeout(timer));
 }
-function stripHtml(s){
-  if(!s) return '';
-  try{return (new DOMParser().parseFromString(String(s),'text/html').body.textContent||'').trim();}
-  catch{return String(s).replace(/<[^>]*>/g,'');}
-}
-function clip(s,n){s=String(s??'');return s.length>n?s.slice(0,n)+'…':s;}
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function safeUrl(u){return /^https?:\/\//i.test(u||'')?u:'#';}
 
-async function searchAudio(){
- const q=$('query').value.trim();
- if(!q){$('searchStatus').textContent='اكتب اسم الصوت أولاً 🙂';return;}
- const token=++searchToken;
- $('searchBtn').disabled=true;
- $('searchStatus').textContent='جاري البحث بالعربي والإنجليزي…';
- $('results').innerHTML='';$('resultsCount').textContent='';
- try{
-  const variants=queryVariants(q), map=new Map();
-  let failed=0;
-  for(const term of variants){
-   try{
-    const url=new URL(API);
-    url.search=new URLSearchParams({action:'query',format:'json',origin:'*',generator:'search',gsrsearch:term+' filetype:audio',gsrnamespace:'6',gsrlimit:'12',prop:'imageinfo',iiprop:'url|mime|mediatype|extmetadata',iiurlwidth:'300'}).toString();
-    const r=await fetchWithTimeout(url);
-    if(!r.ok){failed++;continue;}
-    const data=await r.json();
-    const pages=(data&&data.query&&data.query.pages)||{};
-    for(const p of Object.values(pages)){
-     try{
-      const info=p.imageinfo&&p.imageinfo[0];
-      if(!info||!info.url)continue;
-      const mime=(info.mime||'').toLowerCase();
-      if(!(mime.startsWith('audio/')||/\.(ogg|oga|mp3|wav|flac|opus|mid|midi)(\?|$)/i.test(info.url)))continue;
-      const meta=info.extmetadata||{};
-      const id=String(p.pageid);
-      map.set(id,{
-        id,
-        page:p.title||'',
-        title:clip((p.title||'').replace(/^File:/,''),200),
-        url:info.url,
-        mime,
-        description:clip(stripHtml((meta.UsageTerms&&meta.UsageTerms.value)||(meta.LicenseShortName&&meta.LicenseShortName.value)||'')||'تحقق من الترخيص في صفحة المصدر',200),
-        artist:clip(stripHtml(meta.Artist&&meta.Artist.value),200),
-        credit:clip(stripHtml(meta.Credit&&meta.Credit.value),200),
-        source:'https://commons.wikimedia.org/?curid='+id
-      });
-     }catch(_){/* تجاهل ملف واحد معطوب بدل ما ينهار البحث كله */}
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;',
+    '"':'&quot;', "'":'&#39;'
+  })[c]);
+}
+
+function safeUrl(url) {
+  return /^https?:\/\//i.test(url || '') ? url : '#';
+}
+
+function clip(value, max) {
+  const s = String(value ?? '');
+  return s.length > max ? s.slice(0, max) + '…' : s;
+}
+
+async function searchAudio() {
+  const q = $('query').value.trim();
+
+  if (!q) {
+    $('searchStatus').textContent = 'اكتب اسم الصوت أولاً 🙂';
+    return;
+  }
+
+  const token = ++searchToken;
+  $('searchBtn').disabled = true;
+  $('searchStatus').textContent = 'جاري البحث في YouTube…';
+  $('results').replaceChildren();
+  $('resultsCount').textContent = '';
+  $('ytPlayer').classList.add('hidden');
+  $('ytPlayer').replaceChildren();
+
+  try {
+    const url = new URL(SEARCH_ENDPOINT);
+    url.searchParams.set('q', q);
+    url.searchParams.set('type', 'video');
+
+    const response = await fetchWithTimeout(url.toString());
+
+    if (!response.ok) {
+      throw new Error('خادم البحث غير متاح حالياً');
     }
-   }catch(_){failed++;}
-   if(map.size>=24)break;
+
+    const data = await response.json();
+
+    if (token !== searchToken) return;
+
+    if (!Array.isArray(data)) {
+      throw new Error('وصلت بيانات غير متوقعة');
+    }
+
+    lastResults = data
+      .filter(v => v && v.videoId && v.title)
+      .slice(0, 20)
+      .map(v => {
+        const id = String(v.videoId);
+        const item = {
+          id: 'yt_' + id,
+          videoId: id,
+          kind: 'youtube',
+          title: v.title,
+          artist: v.author || 'YouTube',
+          description: 'فيديو من YouTube',
+          source: 'https://www.youtube.com/watch?v=' + encodeURIComponent(id),
+          url: 'https://www.youtube.com/watch?v=' + encodeURIComponent(id),
+          thumbnail:
+            v.videoThumbnails?.find(t => t.quality === 'medium')?.url ||
+            v.videoThumbnails?.[0]?.url || ''
+        };
+        itemsById.set(item.id, item);
+        return item;
+      });
+
+    if (lastResults.length) {
+      $('searchStatus').textContent =
+        'تم البحث. اختار الفيديو اللي تريده من النتائج 💜';
+    } else {
+      $('searchStatus').textContent =
+        'ما لقينا نتائج. جرّب كلمة ثانية.';
+    }
+
+    renderResults();
+  } catch (error) {
+    if (token !== searchToken) return;
+    $('searchStatus').textContent =
+      'تعذر الاتصال بخدمة البحث. ممكن الخادم متوقف أو الاتصال بطيء. جرّب مرة ثانية.';
+  } finally {
+    if (token === searchToken) $('searchBtn').disabled = false;
   }
-  if(token!==searchToken)return; // بحث أحدث بدأ، تجاهل هذا
-  lastResults=[...map.values()].slice(0,24);
-  lastResults.forEach(it=>itemsById.set(it.id,it));
-  if(lastResults.length){
-   $('searchStatus').textContent='تم البحث. تأكد من الترخيص قبل إعادة نشر أي ملف.';
-  }else if(failed===variants.length){
-   $('searchStatus').textContent='صار خطأ بالاتصال. تأكد من الإنترنت وجرب مرة ثانية.';
-  }else{
-   $('searchStatus').textContent='ما لقينا نتائج صوتية مناسبة. جرّب كلمة ثانية أو اكتبها بالإنجليزي.';
-  }
-  renderResults();
- }catch(e){
-  $('searchStatus').textContent='صار خطأ بالبحث. جرب مرة ثانية.';
- }finally{
-  if(token===searchToken)$('searchBtn').disabled=false;
- }
 }
 
-function renderResults(){
- $('resultsCount').textContent=lastResults.length?`عدد النتائج: ${lastResults.length}`:'';
- $('results').innerHTML=lastResults.map(resultHTML).join('');
-}
-function resultHTML(item){
- const isFav=favorites.some(f=>String(f.id)===String(item.id));
- const id=esc(item.id);
- return `<article class="result"><div class="result-title">${esc(item.title)}</div><div class="result-meta">${esc(item.artist||item.credit||'المصدر: Wikimedia Commons')}<br>الترخيص/المعلومات: ${esc(item.description||'راجع صفحة المصدر')}</div><div class="actions"><button class="small" data-act="play" data-id="${id}">▶️ تشغيل</button><button class="small secondary" data-act="fav" data-id="${id}">${isFav?'💜 بالمفضلة':'♡ أضف للمفضلة'}</button><button class="small secondary" data-act="save" data-id="${id}">📥 حفظ دون إنترنت</button><a class="button secondary small" href="${esc(safeUrl(item.source))}" target="_blank" rel="noopener">المصدر</a></div></article>`;
+function renderResults() {
+  $('resultsCount').textContent = lastResults.length
+    ? 'عدد النتائج: ' + lastResults.length : '';
+  $('results').innerHTML = lastResults.map(resultHTML).join('');
 }
 
-/* كل الأزرار تمر من هنا (بدون onclick داخل النص، فما ينكسر الكود بسبب رموز مثل ' بأسماء الملفات) */
-document.addEventListener('click',e=>{
- const btn=e.target.closest&&e.target.closest('[data-act]');
- if(!btn)return;
- const id=btn.dataset.id, act=btn.dataset.act;
- if(act==='play')playItem(id);
- else if(act==='fav')toggleFavorite(id);
- else if(act==='save')saveOffline(id);
- else if(act==='offplay')playOffline(id);
- else if(act==='offexport')exportOffline(id);
- else if(act==='offdelete')deleteOffline(id);
+function resultHTML(item) {
+  const isYT = item.kind === 'youtube';
+  const isFav = favorites.some(f => String(f.id) === String(item.id));
+  const id = esc(item.id);
+
+  const thumbnail = isYT && item.thumbnail
+    ? `<img class="yt-thumb" src="${esc(item.thumbnail)}" alt="" loading="lazy">`
+    : '';
+
+  const playLabel = isYT ? '▶️ تشغيل الفيديو' : '▶️ تشغيل';
+  const saveButton = isYT ? '' :
+    `<button class="small secondary" data-act="save" data-id="${id}">📥 حفظ دون إنترنت</button>`;
+
+  const sourceButton = item.source
+    ? `<a class="button secondary small" href="${esc(safeUrl(item.source))}" target="_blank" rel="noopener noreferrer">فتح المصدر</a>`
+    : '';
+
+  return `<article class="result">
+    ${thumbnail}
+    <div class="result-title">${esc(item.title)}</div>
+    <div class="result-meta">${esc(item.artist || item.credit || '')}<br>${esc(item.description || '')}</div>
+    <div class="actions">
+      <button class="small" data-act="play" data-id="${id}">${playLabel}</button>
+      <button class="small secondary" data-act="fav" data-id="${id}">${isFav ? '💜 بالمفضلة' : '♡ أضف للمفضلة'}</button>
+      ${saveButton}
+      ${sourceButton}
+    </div>
+  </article>`;
+}
+
+document.addEventListener('click', event => {
+  const button = event.target.closest('[data-act]');
+  if (!button) return;
+
+  const id = button.dataset.id;
+  switch (button.dataset.act) {
+    case 'play': playItem(id); break;
+    case 'fav': toggleFavorite(id); break;
+    case 'save': saveOffline(id); break;
+    case 'offplay': playOffline(id); break;
+    case 'offexport': exportOffline(id); break;
+    case 'offdelete': deleteOffline(id); break;
+  }
 });
 
-function setPlayer(src,title){
- $('player').classList.remove('hidden');
- $('playerTitle').textContent=title;
- $('audio').src=src;
- $('audio').play().catch(()=>{$('playerTitle').textContent=title+' • اضغط تشغيل إذا ما بدأ تلقائياً';});
-}
-function playItem(id){
- const item=itemsById.get(String(id));if(!item)return;
- if(currentObjectUrl){URL.revokeObjectURL(currentObjectUrl);currentObjectUrl=null;}
- setPlayer(item.url,item.title);
+function playItem(id) {
+  const item = itemsById.get(String(id));
+  if (!item) return;
+
+  if (item.kind === 'youtube') {
+    playYouTube(item);
+    return;
+  }
+
+  if (currentObjectUrl) {
+    URL.revokeObjectURL(currentObjectUrl);
+    currentObjectUrl = null;
+  }
+  setPlayer(item.url, item.title);
 }
 
-function loadFavorites(){
- try{
-  const raw=JSON.parse(localStorage.getItem('darknos-favorites')||'[]');
-  favorites=Array.isArray(raw)?raw.filter(x=>x&&x.id&&x.url):[];
- }catch{favorites=[];}
- favorites.forEach(f=>itemsById.set(String(f.id),f));
-}
-function saveFavorites(){try{localStorage.setItem('darknos-favorites',JSON.stringify(favorites));}catch{}}
-function toggleFavorite(id){
- const item=itemsById.get(String(id));if(!item)return;
- const i=favorites.findIndex(f=>String(f.id)===String(id));
- if(i>=0)favorites.splice(i,1);else favorites.unshift(item);
- saveFavorites();
- if($('favorites').classList.contains('active'))renderFavorites();
- if(lastResults.length)renderResults();
-}
-function renderFavorites(){
- $('favoritesList').innerHTML=favorites.length?favorites.map(resultHTML).join(''):'<div class="empty">بعدك ما ضفت شي للمفضلة 💜</div>';
+function playYouTube(item) {
+  const box = $('ytPlayer');
+  box.replaceChildren();
+  box.classList.remove('hidden');
+
+  const title = document.createElement('h3');
+  title.textContent = item.title;
+
+  const frame = document.createElement('iframe');
+  frame.src = 'https://www.youtube-nocookie.com/embed/' +
+    encodeURIComponent(item.videoId);
+  frame.title = item.title;
+  frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+  frame.allowFullscreen = true;
+  frame.loading = 'lazy';
+
+  box.append(title, frame);
+  box.scrollIntoView({behavior: 'smooth', block: 'start'});
 }
 
-async function saveOffline(id){
- const item=itemsById.get(String(id));if(!item)return;
- try{
-  if(!db)await openDB();
-  $('searchStatus').textContent='جاري حفظ الملف على الجهاز…';
-  const r=await fetchWithTimeout(item.url,60000);
-  if(!r.ok)throw new Error('تعذر تنزيل الملف');
-  const blob=await r.blob();
-  await dbRequest('readwrite',store=>store.put({...item,blob,savedAt:Date.now()}));
-  $('searchStatus').textContent='انحفظ الملف بالمكتبة المحلية ✅ تقدر تسمعه بدون إنترنت.';
-  if($('library').classList.contains('active'))renderLibrary();
- }catch(e){$('searchStatus').textContent='ما كدرنا نحفظ الملف. يمكن المصدر منع التنزيل أو الاتصال ضعيف.';}
-}
-async function renderLibrary(){
- try{
-  if(!db)await openDB();
-  const items=await dbRequest('readonly',store=>store.getAll());
-  $('libraryStatus').textContent=items.length?`عندك ${items.length} ملف محفوظ على الجهاز.`:'مكتبتك فارغة حالياً.';
-  $('libraryList').innerHTML=items.sort((a,b)=>(b.savedAt||0)-(a.savedAt||0)).map(item=>{
-   const id=esc(item.id);
-   return `<article class="result library-item"><div class="result-title">${esc(item.title)}</div><div class="result-meta">${esc(item.description||'راجع صفحة المصدر')}</div><div class="actions"><button class="small" data-act="offplay" data-id="${id}">▶️ تشغيل بدون إنترنت</button><button class="small secondary" data-act="offexport" data-id="${id}">⬇️ حفظ كملف بالجهاز</button><button class="small danger" data-act="offdelete" data-id="${id}">🗑️ حذف</button><a class="button secondary small" href="${esc(safeUrl(item.source))}" target="_blank" rel="noopener">المصدر</a></div></article>`;
-  }).join('');
- }catch(e){$('libraryStatus').textContent='تعذر فتح المكتبة. افتح الموقع بالإنترنت مرة، وتأكد من المتصفح.';$('libraryList').innerHTML='';}
-}
-async function getOffline(id){if(!db)await openDB();return dbRequest('readonly',store=>store.get(String(id)));}
-async function playOffline(id){
- try{
-  const item=await getOffline(id);if(!item)throw new Error();
-  if(currentObjectUrl)URL.revokeObjectURL(currentObjectUrl);
-  currentObjectUrl=URL.createObjectURL(item.blob);
-  setPlayer(currentObjectUrl,item.title+' • محفوظ بدون إنترنت');
- }catch{$('libraryStatus').textContent='ما كدرنا نشغل الملف المحفوظ.';}
-}
-async function exportOffline(id){
- try{
-  const item=await getOffline(id);if(!item)throw new Error();
-  const url=URL.createObjectURL(item.blob),a=document.createElement('a');
-  a.href=url;a.download=(item.title||'audio').replace(/[\\/:*?"<>|]/g,'_');
-  document.body.appendChild(a);a.click();a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),60000);
-  $('libraryStatus').textContent='طلبنا تنزيل الملف إلى جهازك. شوف إشعار التنزيلات.';
- }catch{$('libraryStatus').textContent='تعذر تصدير الملف.';}
-}
-async function deleteOffline(id){
- try{if(!db)await openDB();await dbRequest('readwrite',store=>store.delete(String(id)));renderLibrary();}
- catch{$('libraryStatus').textContent='تعذر حذف الملف.';}
+function setPlayer(src, title) {
+  $('player').classList.remove('hidden');
+  $('playerTitle').textContent = title;
+  $('audio').src = src;
+  $('audio').play().catch(() => {
+    $('playerTitle').textContent = title + ' • اضغط تشغيل إذا ما بدأ تلقائياً';
+  });
 }
 
-$('query').addEventListener('keydown',e=>{if(e.key==='Enter')searchAudio();});
+function loadFavorites() {
+  try {
+    const raw = JSON.parse(localStorage.getItem('darknos-favorites') || '[]');
+    favorites = Array.isArray(raw)
+      ? raw.filter(x => x && x.id && x.url) : [];
+  } catch {
+    favorites = [];
+  }
+  favorites.forEach(item => itemsById.set(String(item.id), item));
+}
+
+function saveFavorites() {
+  try {
+    localStorage.setItem('darknos-favorites', JSON.stringify(favorites));
+  } catch {}
+}
+
+function toggleFavorite(id) {
+  const item = itemsById.get(String(id));
+  if (!item) return;
+
+  const index = favorites.findIndex(f => String(f.id) === String(id));
+  if (index >= 0) favorites.splice(index, 1);
+  else favorites.unshift(item);
+
+  saveFavorites();
+  if ($('favorites').classList.contains('active')) renderFavorites();
+  if (lastResults.length) renderResults();
+}
+
+function renderFavorites() {
+  $('favoritesList').innerHTML = favorites.length
+    ? favorites.map(resultHTML).join('')
+    : '<div class="empty">بعدك ما ضفت شي للمفضلة 💜</div>';
+}
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    if (!('indexedDB' in window)) {
+      reject(new Error('المتصفح ما يدعم التخزين المحلي'));
+      return;
+    }
+
+    const request = indexedDB.open(DB_NAME, 1);
+    request.onupgradeneeded = () => {
+      const database = request.result;
+      if (!database.objectStoreNames.contains(STORE)) {
+        database.createObjectStore(STORE, {keyPath: 'id'});
+      }
+    };
+    request.onsuccess = () => {
+      db = request.result;
+      resolve(db);
+    };
+    request.onerror = () => reject(request.error);
+  });
+}
+
+function dbRequest(mode, operation) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE, mode);
+    const store = tx.objectStore(STORE);
+    const request = operation(store);
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function saveOffline(id) {
+  const item = itemsById.get(String(id));
+  if (!item || item.kind === 'youtube') return;
+
+  try {
+    if (!db) await openDB();
+    $('searchStatus').textContent = 'جاري حفظ الملف على الجهاز…';
+
+    const response = await fetchWithTimeout(item.url, 60000);
+    if (!response.ok) throw new Error('تعذر تنزيل الملف');
+
+    const blob = await response.blob();
+    await dbRequest('readwrite', store =>
+      store.put({...item, blob, savedAt: Date.now()})
+    );
+
+    $('searchStatus').textContent =
+      'انحفظ الملف بالمكتبة المحلية ✅';
+    if ($('library').classList.contains('active')) renderLibrary();
+  } catch {
+    $('searchStatus').textContent =
+      'ما كدرنا نحفظ الملف. يمكن المصدر منع التنزيل أو الاتصال ضعيف.';
+  }
+}
+
+async function renderLibrary() {
+  try {
+    if (!db) await openDB();
+    const items = await dbRequest('readonly', store => store.getAll());
+
+    $('libraryStatus').textContent = items.length
+      ? `عندك ${items.length} ملف محفوظ على الجهاز.`
+      : 'مكتبتك فارغة حالياً.';
+
+    $('libraryList').innerHTML = items
+      .sort((a, b) => (b.savedAt || 0) - (a.savedAt || 0))
+      .map(item => {
+        const id = esc(item.id);
+        return `<article class="result library-item">
+          <div class="result-title">${esc(item.title)}</div>
+          <div class="result-meta">${esc(item.description || 'راجع المصدر')}</div>
+          <div class="actions">
+            <button class="small" data-act="offplay" data-id="${id}">▶️ تشغيل بدون إنترنت</button>
+            <button class="small secondary" data-act="offexport" data-id="${id}">⬇️ حفظ كملف بالجهاز</button>
+            <button class="small danger" data-act="offdelete" data-id="${id}">🗑️ حذف</button>
+            <a class="button secondary small" href="${esc(safeUrl(item.source))}" target="_blank" rel="noopener">المصدر</a>
+          </div>
+        </article>`;
+      }).join('');
+  } catch {
+    $('libraryStatus').textContent = 'تعذر فتح المكتبة. تأكد من المتصفح.';
+    $('libraryList').replaceChildren();
+  }
+}
+
+async function getOffline(id) {
+  if (!db) await openDB();
+  return dbRequest('readonly', store => store.get(String(id)));
+}
+
+async function playOffline(id) {
+  try {
+    const item = await getOffline(id);
+    if (!item) throw new Error();
+
+    if (currentObjectUrl) URL.revokeObjectURL(currentObjectUrl);
+    currentObjectUrl = URL.createObjectURL(item.blob);
+    setPlayer(currentObjectUrl, item.title + ' • محفوظ بدون إنترنت');
+  } catch {
+    $('libraryStatus').textContent = 'ما كدرنا نشغل الملف المحفوظ.';
+  }
+}
+
+async function exportOffline(id) {
+  try {
+    const item = await getOffline(id);
+    if (!item) throw new Error();
+
+    const url = URL.createObjectURL(item.blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = (item.title || 'audio').replace(/[\\/:*?"<>|]/g, '_');
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+    $('libraryStatus').textContent = 'شوف إشعار التنزيلات بجهازك.';
+  } catch {
+    $('libraryStatus').textContent = 'تعذر تصدير الملف.';
+  }
+}
+
+async function deleteOffline(id) {
+  try {
+    if (!db) await openDB();
+    await dbRequest('readwrite', store => store.delete(String(id)));
+    renderLibrary();
+  } catch {
+    $('libraryStatus').textContent = 'تعذر حذف الملف.';
+  }
+}
+
+$('query').addEventListener('keydown', event => {
+  if (event.key === 'Enter') searchAudio();
+});
+
+window.addEventListener('error', event => {
+  if ($('searchStatus')) {
+    $('searchStatus').textContent = 'صار خطأ غير متوقع. جرّب مرة ثانية.';
+  }
+});
+
 loadFavorites();
-openDB().catch(()=>{});
+openDB().catch(() => {});
 </script>
 </body>
 </html>
