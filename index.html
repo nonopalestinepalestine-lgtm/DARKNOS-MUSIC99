@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#100d18">
+<meta name="description" content="DARKNOS MUSIC - ابحث واستمع إلى الصوتيات المجانية المتاحة قانونياً.">
+<title>DARKNOS MUSIC</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0910;--panel:#15111e;--panel2:#1c1628;--purple:#a855f7;--purple2:#7c3aed;--text:#f6f1ff;--muted:#b7abc8;--line:#30253f;--good:#8ee6bb}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#24123b 0,#0b0910 48%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;min-height:100vh}
+header{padding:28px 16px 20px;text-align:center}.logo{font-weight:950;letter-spacing:1.5px;font-size:clamp(28px,7vw,46px);line-height:1.15}.logo span{color:#c084fc;text-shadow:0 0 24px #9333ea88}.tag{color:var(--muted);margin:10px auto 0;font-size:14px}
+main{max-width:850px;margin:auto;padding:0 14px 140px}.panel{background:#15111eea;border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 12px 40px #0003}
+.searchrow{display:flex;gap:8px}.searchrow input{min-width:0;flex:1;background:#0d0a13;border:1px solid #40304f;border-radius:13px;color:var(--text);padding:14px;font-size:16px;outline:none}.searchrow input:focus{border-color:var(--purple)}button,.btn{border:0;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:white;font-weight:750;padding:12px 15px;font-size:14px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px}button:disabled{opacity:.5;cursor:wait}.filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.chip{background:#21182d;border:1px solid #3a2a4b;color:#e8d8ff;border-radius:999px;padding:8px 12px;cursor:pointer}.chip.active{background:#6d28d9;border-color:#a855f7}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 2px 12px}.sectionhead h2{font-size:18px;margin:0}.muted{color:var(--muted);font-size:13px}.status{color:var(--muted);padding:12px 4px;text-align:center;line-height:1.7}
+.result{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line)}.result:last-child{border-bottom:0}.disc{width:48px;height:48px;flex:0 0 48px;border-radius:14px;background:linear-gradient(135deg,#3b1760,#171020);display:grid;place-items:center;font-size:22px}.info{min-width:0;flex:1}.info h3{font-size:15px;margin:1px 0 6px;overflow-wrap:anywhere}.meta{font-size:12px;color:var(--muted);line-height:1.65}.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}.small{min-height:36px;padding:8px 10px;font-size:12px}.secondary{background:#251b32;border:1px solid #49345d}.danger{background:#4a1d35;border:1px solid #743151}.license{color:var(--good)}.tabs{display:flex;gap:8px}.tabs button{flex:1}.tabs .secondary{background:#1c1628}.tabs .selected{background:linear-gradient(135deg,var(--purple),var(--purple2))}
+.player{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#100d18f5;backdrop-filter:blur(16px);border-top:1px solid #382548;padding:12px max(14px,env(safe-area-inset-left)) calc(12px + env(safe-area-inset-bottom));box-shadow:0 -8px 30px #0005}.playerinner{max-width:850px;margin:auto}.playingtitle{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:7px}.player audio{width:100%;height:38px;accent-color:var(--purple)}.note{font-size:12px;color:var(--muted);line-height:1.7;margin-top:10px}.empty{padding:18px;text-align:center;color:var(--muted);line-height:1.8}
+@media(min-width:620px){.result{align-items:center}.disc{width:54px;height:54px;flex-basis:54px}.panel{padding:20px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">DARKNOS <span>MUSIC</span></div>
+  <p class="tag">صوتك المفضل، بمكان واحد 🎧</p>
+</header>
+<main>
+  <section class="panel">
+    <form id="searchForm">
+      <div class="searchrow">
+        <input id="query" type="search" placeholder="ابحث عن ملف صوتي..." autocomplete="off" aria-label="ابحث عن ملف صوتي" required>
+        <button id="searchBtn" type="submit">بحث</button>
+      </div>
+    </form>
+    <div class="filters" aria-label="اقتراحات البحث">
+      <button class="chip" data-q="Quran recitation audio">قرآن كريم</button>
+      <button class="chip" data-q="Arabic poetry audio">قصائد عربية</button>
+      <button class="chip" data-q="Arabic music audio">موسيقى عربية</button>
+      <button class="chip" data-q="nature sounds audio">أصوات طبيعة</button>
+    </div>
+    <p class="note">تُعرض الملفات الصوتية الموجودة على Wikimedia Commons فقط. النتائج قد تكون محدودة، وليست كل أغنية موجودة. افحص الترخيص وشروط الاستخدام لكل ملف.</p>
+  </section>
+
+  <section class="panel">
+    <div class="sectionhead"><h2 id="listTitle">نتائج البحث</h2><span id="count" class="muted"></span></div>
+    <div id="results" class="empty">اكتب اسم الصوتية واضغط «بحث» حتى نبحث بالمصادر المفتوحة.</div>
+  </section>
+
+  <section class="panel">
+    <div class="sectionhead"><h2>مكتبتي المحلية</h2><span id="savedCount" class="muted">0 ملفات</span></div>
+    <p class="note">الملفات التي تحفظها هنا تبقى داخل تخزين المتصفح على هذا الجهاز. إذا مسحت بيانات المتصفح، ممكن تنحذف المكتبة.</p>
+    <div id="library" class="empty">ماكو ملفات محفوظة بعد.</div>
+  </section>
+  <section class="panel">
+    <div class="sectionhead"><h2>حول الموقع</h2></div>
+    <p class="note">DARKNOS MUSIC واجهة تجريبية مستقلة. لا ترفع ملفاتك إلى أي خادم. البحث يحتاج إنترنت، أما الملفات التي تم حفظها بنجاح فيمكن تشغيلها من المكتبة دون إنترنت. احترم حقوق النشر، ونسب العمل لصاحبه عندما يتطلب الترخيص ذلك.</p>
+  </section>
+</main>
+<div class="player">
+  <div class="playerinner">
+    <div id="playingTitle" class="playingtitle">اختَر ملفاً صوتياً للتشغيل</div>
+    <audio id="audio" controls preload="none"></audio>
+  </div>
+</div>
+<script>
+const API='https://commons.wikimedia.org/w/api.php';
+const $=id=>document.getElementById(id);
+let currentResults=[];
+let activeFilter='';
+
+function cleanText(value){
+  const d=document.createElement('div'); d.innerHTML=value||'';
+  return (d.textContent||d.innerText||'').trim();
+}
+function safeUrl(url){
+  try { const u=new URL(url); return u.protocol==='https:' ? u.href : ''; } catch { return ''; }
+}
+function licenseText(meta){
+  const m=meta||{};
+  return cleanText(m.LicenseShortName?.value || m.UsageTerms?.value || 'راجع صفحة الملف لمعرفة الترخيص');
+}
+function authorText(meta){
+  return cleanText(meta.Artist?.value || meta.Credit?.value || 'المؤلف غير محدد في البيانات');
+}
+function filePage(title){
+  return 'https://commons.wikimedia.org/wiki/'+encodeURIComponent(title.replaceAll(' ','_')).replaceAll('%3A',':');
+}
+async function searchAudio(term){
+  $('results').innerHTML='<div class="status">جاري البحث عن ملفات صوتية... ⏳</div>';
+  $('searchBtn').disabled=true; $('count').textContent='';
+  try{
+    const params=new URLSearchParams({
+      action:'query',format:'json',origin:'*',generator:'search',
+      gsrsearch:term+' filetype:audio',gsrnamespace:'6',gsrlimit:'20',
+      prop:'imageinfo',iiprop:'url|mime|mediatype|extmetadata',
+      iiextmetadatafilter:'LicenseShortName|UsageTerms|Artist|Credit'
+    });
+    const response=await fetch(API+'?'+params.toString());
+    if(!response.ok) throw new Error('تعذر الاتصال بمصدر البحث.');
+    const data=await response.json();
+    const pages=Object.values(data.query?.pages||{});
+    currentResults=pages.map(p=>{
+      const ii=p.imageinfo?.[0]; if(!ii) return null;
+      const mime=ii.mime||'';
+      const url=safeUrl(ii.url);
+      if(!url || (!mime.startsWith('audio/') && ii.mediatype!=='AUDIO')) return null;
+      return {title:p.title.replace(/^File:/,''),url,page:ii.descriptionurl||filePage(p.title),license:licenseText(ii.extmetadata),author:authorText(ii.extmetadata)};
+    }).filter(Boolean);
+    renderResults(currentResults);
+  }catch(err){
+    $('results').innerHTML='<div class="empty">ما قدرنا نجيب النتائج هسه. تأكد من الإنترنت وجرب مرة ثانية.<br><span class="muted">'+escapeHtml(err.message)+'</span></div>';
+  }finally{$('searchBtn').disabled=false;}
+}
+function escapeHtml(s){
+ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function resultCard(item,index){
+ const div=document.createElement('article'); div.className='result';
+ div.innerHTML=`<div class="disc">♫</div><div class="info"><h3>${escapeHtml(item.title)}</h3><div class="meta">صاحب العمل: ${escapeHtml(item.author)}<br><span class="license">الترخيص: ${escapeHtml(item.license)}</span></div><div class="actions"><button class="small play">▶ تشغيل</button><button class="small secondary save">⬇ حفظ دون إنترنت</button><a class="btn small secondary" href="${escapeHtml(item.page)}" target="_blank" rel="noopener noreferrer">صفحة المصدر والترخيص ↗</a></div><div class="meta saveStatus" aria-live="polite"></div></div>`;
+ div.querySelector('.play').addEventListener('click',()=>playItem(item));
+ div.querySelector('.save').addEventListener('click',async e=>{
+   const btn=e.currentTarget, status=div.querySelector('.saveStatus'); btn.disabled=true;status.textContent='جاري حفظ الملف داخل المكتبة...';
+   try{await saveItem(item);status.textContent='تم الحفظ في المكتبة المحلية ✓';renderLibrary();}
+   catch(err){status.textContent='تعذر الحفظ: قد يكون الملف كبيراً أو المصدر لا يسمح بجلبه من المتصفح. افتح صفحة المصدر وحمّله إن كان التنزيل متاحاً.';}
+   finally{btn.disabled=false;}
+ });
+ return div;
+}
+function renderResults(items){
+ $('count').textContent=items.length+' ملف';
+ if(!items.length){$('results').innerHTML='<div class="empty">ما لقينا ملفات صوتية مطابقة بهالبحث. جرّب كلمات إنجليزية أو عبارة أقصر.</div>';return;}
+ $('results').replaceChildren(...items.map(resultCard));
+}
+function playItem(item){
+ const audio=$('audio'); audio.src=item.url; $('playingTitle').textContent=item.title;
+ audio.play().catch(()=>{$('playingTitle').textContent='اضغط تشغيل من مشغل الصوت؛ قد يكون المصدر لا يسمح بالتشغيل المباشر.';});
+}
+const DB_NAME='darknos-music-db', STORE='audio';
+function openDB(){
+ return new Promise((resolve,reject)=>{
+  const req=indexedDB.open(DB_NAME,1);
+  req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'id'});};
+  req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);
+ });
+}
+async function dbAction(mode,callback){
+ const db=await openDB();
+ return new Promise((resolve,reject)=>{
+  const tx=db.transaction(STORE,mode),store=tx.objectStore(STORE);
+  let result; try{result=callback(store);}catch(e){reject(e);db.close();return;}
+  tx.oncomplete=()=>{db.close();resolve(result);};tx.onerror=()=>{db.close();reject(tx.error);};
+ });
+}
+function getAllSaved(){
+ return openDB().then(db=>new Promise((resolve,reject)=>{
+  const req=db.transaction(STORE,'readonly').objectStore(STORE).getAll();
+  req.onsuccess=()=>{db.close();resolve(req.result||[]);};req.onerror=()=>{db.close();reject(req.error);};
+ }));
+}
+async function saveItem(item){
+ const response=await fetch(item.url);
+ if(!response.ok)throw new Error('download failed');
+ const blob=await response.blob();
+ if(!blob.type.startsWith('audio/') && blob.size<1000)throw new Error('not audio');
+ await dbAction('readwrite',store=>store.put({...item,blob,id:item.page}));
+}
+async function renderLibrary(){
+ try{
+  const items=await getAllSaved();$('savedCount').textContent=items.length+' ملفات';
+  if(!items.length){$('library').className='empty';$('library').textContent='ماكو ملفات محفوظة بعد.';return;}
+  $('library').className='';
+  const nodes=items.map(item=>{
+   const div=document.createElement('div');div.className='result';
+   div.innerHTML=`<div class="disc">♫</div><div class="info"><h3>${escapeHtml(item.title)}</h3><div class="meta">الترخيص: ${escapeHtml(item.license)}</div><div class="actions"><button class="small play">▶ تشغيل</button><button class="small secondary export">حفظ كملف بالتلفون</button><button class="small danger remove">حذف من المكتبة</button><a class="btn small secondary" href="${escapeHtml(item.page)}" target="_blank" rel="noopener noreferrer">المصدر ↗</a></div></div>`;
+   div.querySelector('.play').addEventListener('click',()=>{const url=URL.createObjectURL(item.blob);$('audio').src=url;$('playingTitle').textContent=item.title;$('audio').play().catch(()=>{});});
+   div.querySelector('.export').addEventListener('click',()=>{const url=URL.createObjectURL(item.blob),a=document.createElement('a');a.href=url;a.download=item.title.split('/').pop()||'audio-file';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);});
+   div.querySelector('.remove').addEventListener('click',async()=>{await dbAction('readwrite',store=>store.delete(item.id));renderLibrary();});
+   return div;
+  });
+  $('library').replaceChildren(...nodes);
+ }catch(e){$('library').textContent='التخزين المحلي غير متاح في هذا المتصفح.';}
+}
+$('searchForm').addEventListener('submit',e=>{e.preventDefault();const term=$('query').value.trim();if(term)searchAudio(term);});
+document.querySelectorAll('[data-q]').forEach(btn=>btn.addEventListener('click',()=>{$('query').value=btn.dataset.q;searchAudio(btn.dataset.q);}));
+renderLibrary();
+</script>
+</body>
+</html>
